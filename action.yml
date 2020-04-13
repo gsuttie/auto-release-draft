@@ -1,6 +1,10 @@
 name: 'Auto Release Draft'
 description: 'Drafts a GitHub release with the changes introduced by a newly created version tag.'
 author: 'Gregor Suttie aka Azure Greg'
+inputs:
+  repo-token:
+    description: 'The GITHUB_TOKEN used to authenticate to the current repo'
+    required: true
 outputs:
   release-url:
     description: 'The url of the GitHub release that was drafted'
