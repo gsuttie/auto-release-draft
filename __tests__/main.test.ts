@@ -13,12 +13,24 @@ jest.mock('../src/git')
 jest.mock('../src/github')
 
 describe('When running the action with a created version tag event', () => {
-  const fakeGetCreatedTag = event.getCreatedTag as jest.MockedFunction<typeof event.getCreatedTag>
-  const fakeIsSemVer = version.isSemVer as jest.MockedFunction<typeof version.isSemVer>
-  const fakeGetChanges = git.getChangesIntroducedByTag as jest.MockedFunction<typeof git.getChangesIntroducedByTag>
-  const fakeGetInput = core.getInput as jest.MockedFunction<typeof core.getInput>
-  const fakeCreateRelease = github.createReleaseDraft as jest.MockedFunction<typeof github.createReleaseDraft>
-  const fakeSetOutput = core.setOutput as jest.MockedFunction<typeof core.setOutput>
+  const fakeGetCreatedTag = event.getCreatedTag as jest.MockedFunction<
+    typeof event.getCreatedTag
+  >
+  const fakeIsSemVer = version.isSemVer as jest.MockedFunction<
+    typeof version.isSemVer
+  >
+  const fakeGetChanges = git.getChangesIntroducedByTag as jest.MockedFunction<
+    typeof git.getChangesIntroducedByTag
+  >
+  const fakeGetInput = core.getInput as jest.MockedFunction<
+    typeof core.getInput
+  >
+  const fakeCreateRelease = github.createReleaseDraft as jest.MockedFunction<
+    typeof github.createReleaseDraft
+  >
+  const fakeSetOutput = core.setOutput as jest.MockedFunction<
+    typeof core.setOutput
+  >
 
   beforeAll(() => {
     fakeGetCreatedTag.mockReturnValue('v1.0.0')
@@ -41,7 +53,11 @@ describe('When running the action with a created version tag event', () => {
   })
 
   test('it should create a release draft for the created version tag', () => {
-    expect(fakeCreateRelease).toHaveBeenCalledWith('v1.0.0', 'the-token', 'changelog')
+    expect(fakeCreateRelease).toHaveBeenCalledWith(
+      'v1.0.0',
+      'the-token',
+      'changelog'
+    )
   })
 
   test('it should set the created release URL as output parameter', () => {
@@ -50,9 +66,15 @@ describe('When running the action with a created version tag event', () => {
 })
 
 describe('When running the action with another kind of event', () => {
-  const fakeGetCreatedTag = event.getCreatedTag as jest.MockedFunction<typeof event.getCreatedTag>
-  const fakeCreateRelease = github.createReleaseDraft as jest.MockedFunction<typeof github.createReleaseDraft>
-  const fakeSetOutput = core.setOutput as jest.MockedFunction<typeof core.setOutput>
+  const fakeGetCreatedTag = event.getCreatedTag as jest.MockedFunction<
+    typeof event.getCreatedTag
+  >
+  const fakeCreateRelease = github.createReleaseDraft as jest.MockedFunction<
+    typeof github.createReleaseDraft
+  >
+  const fakeSetOutput = core.setOutput as jest.MockedFunction<
+    typeof core.setOutput
+  >
 
   beforeAll(() => {
     fakeGetCreatedTag.mockReturnValue(null)
@@ -72,10 +94,18 @@ describe('When running the action with another kind of event', () => {
 })
 
 describe('When running the action with a tag created event that does not conform to SemVer', () => {
-  const fakeGetCreatedTag = event.getCreatedTag as jest.MockedFunction<typeof event.getCreatedTag>
-  const fakeIsSemVer = version.isSemVer as jest.MockedFunction<typeof version.isSemVer>
-  const fakeCreateRelease = github.createReleaseDraft as jest.MockedFunction<typeof github.createReleaseDraft>
-  const fakeSetOutput = core.setOutput as jest.MockedFunction<typeof core.setOutput>
+  const fakeGetCreatedTag = event.getCreatedTag as jest.MockedFunction<
+    typeof event.getCreatedTag
+  >
+  const fakeIsSemVer = version.isSemVer as jest.MockedFunction<
+    typeof version.isSemVer
+  >
+  const fakeCreateRelease = github.createReleaseDraft as jest.MockedFunction<
+    typeof github.createReleaseDraft
+  >
+  const fakeSetOutput = core.setOutput as jest.MockedFunction<
+    typeof core.setOutput
+  >
 
   beforeAll(() => {
     fakeGetCreatedTag.mockReturnValue('1.0')
@@ -98,10 +128,18 @@ describe('When running the action with a tag created event that does not conform
 })
 
 describe('When creating a release draft fails', () => {
-  const fakeIsSemVer = version.isSemVer as jest.MockedFunction<typeof version.isSemVer>
-  const fakeCreateRelease = github.createReleaseDraft as jest.MockedFunction<typeof github.createReleaseDraft>
-  const fakeSetFailed = core.setFailed as jest.MockedFunction<typeof core.setFailed>
-  const fakeSetOutput = core.setOutput as jest.MockedFunction<typeof core.setOutput>
+  const fakeIsSemVer = version.isSemVer as jest.MockedFunction<
+    typeof version.isSemVer
+  >
+  const fakeCreateRelease = github.createReleaseDraft as jest.MockedFunction<
+    typeof github.createReleaseDraft
+  >
+  const fakeSetFailed = core.setFailed as jest.MockedFunction<
+    typeof core.setFailed
+  >
+  const fakeSetOutput = core.setOutput as jest.MockedFunction<
+    typeof core.setOutput
+  >
 
   beforeAll(() => {
     fakeIsSemVer.mockReturnValue(true)
@@ -119,6 +157,9 @@ describe('When creating a release draft fails', () => {
   })
 
   test('it should not set the release-url output parameter', () => {
-    expect(fakeSetOutput).not.toHaveBeenCalledWith('release-output', expect.anything())
+    expect(fakeSetOutput).not.toHaveBeenCalledWith(
+      'release-output',
+      expect.anything()
+    )
   })
 })
